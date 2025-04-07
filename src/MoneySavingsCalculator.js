@@ -13,7 +13,7 @@ const MoneySavingsCalculator = () => {
         setSeconds((prev) => {
           const next = prev + 1;
           setMoney((prevMoney) => {
-            const newMoney = next % 2 === 0 ? prevMoney - 30 : prevMoney + 50;
+            const newMoney = next % 3 === 0 ? prevMoney - 30 : prevMoney + 50;
             playSound();
             triggerAnimation();
             return newMoney;
