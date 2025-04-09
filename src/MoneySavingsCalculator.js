@@ -30,6 +30,17 @@ const MoneySavingsCalculator = () => {
     return () => clearInterval(interval);
   }, [running]);
 
+  const predictSavings = () => {
+    const avgGainPerSecond = 1; // (5 - 3) / 2 = 1$ per second
+    return {
+      week: money + avgGainPerSecond * 604800,
+      month: money + avgGainPerSecond * 2592000,
+      year: money + avgGainPerSecond * 31536000,
+    };
+  };
+
+  const predictions = predictSavings();
+
   const resetCalculator = () => {
     setRunning(false);
     setSeconds(0);
@@ -108,6 +119,12 @@ const MoneySavingsCalculator = () => {
           }
         `}
       </style>
+      <button
+        className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+        onClick={toggleMute}
+      >
+        {isMuted ? "Unmute Sound 🔇" : "Mute Sound 🔊"}
+      </button>
       <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md text-center">
         <h1 className="text-2xl font-bold mb-4">Money Savings Calculator</h1>
         <p className="text-lg">
@@ -156,12 +173,23 @@ const MoneySavingsCalculator = () => {
           ))}
         </div>
       </div>
-      <button
-        className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
-        onClick={toggleMute}
-      >
-        {isMuted ? "Unmute Sound 🔇" : "Mute Sound 🔊"}
-      </button>
+      <div className="mt-6 text-left bg-white p-4 rounded-xl shadow-md w-full max-w-md">
+        <h2 className="text-xl font-semibold mb-2">Predicted Savings:</h2>
+        <ul className="space-y-1 text-gray-700">
+          <li>
+            📅 After 1 Week:{" "}
+            <strong>${predictions.week.toLocaleString()}</strong>
+          </li>
+          <li>
+            📅 After 1 Month:{" "}
+            <strong>${predictions.month.toLocaleString()}</strong>
+          </li>
+          <li>
+            📅 After 1 Year:{" "}
+            <strong>${predictions.year.toLocaleString()}</strong>
+          </li>
+        </ul>
+      </div>
       <div className="mt-6 text-left bg-white p-4 rounded-xl shadow-md w-full max-w-md">
         <h2 className="text-xl font-semibold mb-2">Usage Stats:</h2>
         <ul className="space-y-1 text-gray-700">
